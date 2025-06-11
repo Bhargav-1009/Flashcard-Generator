@@ -60,7 +60,7 @@ Users can input a topic (e.g., "Photosynthesis," "JavaScript Data Types") or pro
 **Note on API Key:**
 The `API_KEY` is loaded from `process.env.API_KEY`. **Do not commit your API key directly into the code or into a `.env` file that is tracked by Git.** Ensure your `.gitignore` file includes `.env` if you choose to use such a file locally.
 
-** This application was developed with the assistance of Google AI Studio, iteratively translating instructive prompts into its features and functionality. **
+**This application was developed with the assistance of Google AI Studio, iteratively translating instructive prompts into its features and functionality.**
 
 # Run and deploy your AI Studio app
 
