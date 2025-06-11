@@ -10,6 +10,7 @@ Users can input a topic (e.g., "Photosynthesis," "JavaScript Data Types") or pro
 *   **AI Flashcard Generation:** Leverages the Google Gemini API (`gemini-2.5-flash-preview-04-17`) to create flashcards from user input.
 *   **Interactive UI:**
     *   Click to flip cards between term and definition.
+        ![Screenshot of the app homescreen](app-homescreen.png)
     *   Responsive design for use on various devices.
     *   Light and Dark mode support for user preference.
 *   **Voice Input for Answers:**
