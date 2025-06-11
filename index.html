@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flashcard Generator</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <script type="importmap">
+  {
+    "imports": {
+      "@google/genai": "https://esm.sh/@google/genai@^0.12.0"
+    }
+  }
+  </script>
+  <!-- Add Google Fonts Link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Flashcard Generator</h1>
+      <p>
+        Enter a topic or a list of terms and definitions to generate flashcards using the Gemini API.
+      </p>
+    </header>
+
+    <main class="app-main">
+      <div class="controls-container">
+        <textarea
+          id="topicInput"
+          placeholder="Enter topic (e.g., Ancient Rome) or 'Term: Definition' pairs (one per line)"
+          aria-label="Topic or terms and definitions"
+        ></textarea>
+        <div class="actions-row">
+          <button id="generateButton">Generate Flashcards</button>
+        </div>
+      </div>
+      <div id="errorMessage" class="error-message" role="alert" aria-live="assertive"></div>
+      <div id="flashcardsContainer" class="flashcards-container">
+        <!-- Flashcards will be generated here -->
+      </div>
+    </main>
+    <footer class="app-footer">
+      <p>&copy; 2024 Flashcard Generator. Powered by Gemini.</p>
+    </footer>
+  </div>
+
+  <div id="voiceInputModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="voiceInputModalTitle" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="voiceInputModalTitle">Speak Your Answer</h2>
+      <p>For the term: <strong id="modalTerm"></strong></p>
+      <div class="modal-actions">
+        <button id="recordButton" aria-label="Start recording answer">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1.2-9.1c0-.66.54-1.2 1.2-1.2.66 0 1.2.54 1.2 1.2l-.01 6.2c0 .66-.53 1.2-1.19 1.2s-1.2-.54-1.2-1.2V4.9zm6.5 6.1c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+          Start Recording
+        </button>
+        <button id="stopRecordButton" aria-label="Stop recording answer" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 6h12v12H6V6z"/></svg>
+          Stop Recording
+        </button>
+      </div>
+      <p id="voiceStatus" class="voice-status-message" aria-live="polite"></p>
+      <textarea id="transcribedText" placeholder="Your transcribed answer will appear here..." aria-label="Transcribed answer" readonly></textarea>
+      <div class="modal-footer-actions">
+        <button id="checkAnswerButton" disabled>Check My Answer</button>
+        <button id="cancelVoiceInputButton" class="button-secondary">Just Flip Card</button>
+      </div>
+    </div>
+  </div>
+
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

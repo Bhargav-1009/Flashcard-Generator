@@ -1,0 +1,540 @@
+:root {
+  --light-bg: #eef2f7; /* Updated light background */
+  --dark-bg: #1c2532;  /* Updated dark background */
+  --light-surface: #ffffff;
+  --dark-surface: #2d2e30;
+  --light-text-primary: #202124;
+  --dark-text-primary: #e8eaed;
+  --light-text-secondary: #5f6368;
+  --dark-text-secondary: #bdc1c6;
+  --light-primary: #1a73e8; /* Google Blue */
+  --dark-primary: #8ab4f8; /* Lighter Google Blue for dark mode */
+  --light-primary-hover: #185abc;
+  --dark-primary-hover: #aecbfa;
+  --light-border: #dadce0;
+  --dark-border: #5f6368;
+  --light-error: #d93025;
+  --dark-error: #f28b82;
+  --light-disabled-bg: #e0e0e0;
+  --dark-disabled-bg: #3c4043;
+  --light-disabled-text: #a0a0a0;
+  --dark-disabled-text: #7f8184;
+  --light-shadow-color-1: rgba(60, 64, 67, 0.15);
+  --dark-shadow-color-1: rgba(0, 0, 0, 0.3);
+  --light-shadow-color-2: rgba(60, 64, 67, 0.1);
+  --dark-shadow-color-2: rgba(0, 0, 0, 0.2);
+  --light-focus-shadow-color: rgba(26, 115, 232, 0.2);
+  --dark-focus-shadow-color: rgba(138, 180, 248, 0.3);
+  --light-button-focus-shadow-color: rgba(26, 115, 232, 0.3);
+  --dark-button-focus-shadow-color: rgba(138, 180, 248, 0.4);
+  --light-button-text: white;
+  --dark-button-text: var(--dark-bg);
+  --flashcard-width: 230px;
+  --flashcard-height: 180px; /* Slightly increased height for feedback */
+
+  /* Flashcard Colors */
+  --flashcard-bg-light: #f8f9fa; /* Slightly off-white for light mode cards */
+  --flashcard-bg-dark: #35363a;   /* Slightly lighter than surface for dark mode cards */
+  --flashcard-border-light: var(--light-border);
+  --flashcard-border-dark: var(--dark-border);
+  --flashcard-term-text-light: var(--light-primary);
+  --flashcard-definition-text-light: var(--light-text-primary);
+  
+  --flashcard-term-text-dark: var(--dark-primary);
+  --flashcard-definition-text-dark: var(--dark-text-primary);
+
+  /* Current card variables - set to flashcard specific colors */
+  --current-card-bg: light-dark(var(--flashcard-bg-light), var(--flashcard-bg-dark));
+  --current-card-border: light-dark(var(--flashcard-border-light), var(--flashcard-border-dark));
+  --current-card-term-text: light-dark(var(--flashcard-term-text-light), var(--flashcard-term-text-dark));
+  --current-card-definition-text: light-dark(var(--flashcard-definition-text-light), var(--flashcard-definition-text-dark));
+
+  /* Feedback Colors */
+  --feedback-correct-bg-light: #e6f4ea;
+  --feedback-correct-text-light: #1e8e3e;
+  --feedback-correct-border-light: #a8d5b5;
+  --feedback-correct-bg-dark: #345c47;
+  --feedback-correct-text-dark: #a6d7b5;
+  --feedback-correct-border-dark: #4a7c59;
+
+  --feedback-partial-bg-light: #fff8e1;
+  --feedback-partial-text-light: #e27100;
+  --feedback-partial-border-light: #fdd89a;
+  --feedback-partial-bg-dark: #664f1b;
+  --feedback-partial-text-dark: #fdd89b;
+  --feedback-partial-border-dark: #8c703c;
+
+  --feedback-incorrect-bg-light: #fce8e6;
+  --feedback-incorrect-text-light: #c5221f;
+  --feedback-incorrect-border-light: #f7babc;
+  --feedback-incorrect-bg-dark: #65302d;
+  --feedback-incorrect-text-dark: #f8b9b7;
+  --feedback-incorrect-border-dark: #8b4542;
+}
+
+body {
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  margin: 0;
+  background-color: light-dark(var(--light-bg), var(--dark-bg));
+  background-image: none;
+  background-attachment: fixed; 
+  background-size: cover; 
+  color: light-dark(var(--light-text-primary), var(--dark-text-primary));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+  background-color: light-dark(var(--light-surface), var(--dark-surface));
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px light-dark(var(--light-shadow-color-1), var(--dark-shadow-color-1)),
+              0 4px 8px light-dark(var(--light-shadow-color-2), var(--dark-shadow-color-2));
+  width: 90%;
+  max-width: 900px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.app-header {
+  text-align: center;
+  border-bottom: 1px solid light-dark(var(--light-border), var(--dark-border));
+  padding-bottom: 20px;
+}
+
+.app-header h1 {
+  color: light-dark(var(--light-primary), var(--dark-primary));
+  margin-bottom: 10px;
+  font-size: 2.2em;
+  font-weight: 500;
+}
+
+.app-header p {
+  margin-bottom: 0;
+  color: light-dark(var(--light-text-secondary), var(--dark-text-secondary));
+  line-height: 1.6;
+  font-size: 1.05em;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+textarea#topicInput { /* More specific selector for main textarea */
+  width: calc(100% - 32px);
+  padding: 15px;
+  border: 1px solid light-dark(var(--light-border), var(--dark-border));
+  border-radius: 8px;
+  font-size: 16px;
+  min-height: 120px;
+  background-color: light-dark(var(--light-bg), var(--dark-surface));
+  color: light-dark(var(--light-text-primary), var(--dark-text-primary));
+  resize: vertical;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea#topicInput:focus {
+  outline: none;
+  border-color: light-dark(var(--light-primary), var(--dark-primary));
+  box-shadow: 0 0 0 3px light-dark(var(--light-focus-shadow-color), var(--dark-focus-shadow-color));
+}
+
+.actions-row {
+  display: flex;
+  justify-content: center; /* Center the button */
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+button {
+  background-color: light-dark(var(--light-primary), var(--dark-primary));
+  color: light-dark(var(--light-button-text), var(--dark-button-text));
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 1px 2px light-dark(var(--light-shadow-color-2), var(--dark-shadow-color-2));
+  flex-grow: 0; 
+  width: 100%; 
+  max-width: 300px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+button svg {
+  width: 20px;
+  height: 20px;
+}
+
+button:hover {
+  background-color: light-dark(var(--light-primary-hover), var(--dark-primary-hover));
+  box-shadow: 0 1px 3px light-dark(var(--light-shadow-color-1), var(--dark-shadow-color-1));
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px light-dark(var(--light-button-focus-shadow-color), var(--dark-button-focus-shadow-color));
+}
+
+button:disabled {
+  background-color: light-dark(var(--light-disabled-bg), var(--dark-disabled-bg));
+  color: light-dark(var(--light-disabled-text), var(--dark-disabled-text));
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+.button-secondary {
+  background-color: light-dark(var(--light-surface), var(--dark-surface));
+  color: light-dark(var(--light-primary), var(--dark-primary));
+  border: 1px solid light-dark(var(--light-border), var(--dark-border));
+}
+.button-secondary:hover {
+  background-color: light-dark(var(--light-bg), #3c4043); /* Slightly darker for dark mode */
+}
+
+
+.error-message {
+  color: light-dark(var(--light-error), var(--dark-error));
+  margin-top: 10px;
+  font-weight: 500;
+  min-height: 1.5em;
+  text-align: center;
+}
+
+.flashcards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 10px; 
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.flashcard {
+  background-color: transparent; 
+  width: var(--flashcard-width);
+  height: var(--flashcard-height);
+  border: none;
+  border-radius: 10px; 
+  cursor: pointer;
+  perspective: 1000px;
+  box-shadow: none;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 1px 2px light-dark(var(--light-shadow-color-2), var(--dark-shadow-color-2));
+  border-radius: 10px; 
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid var(--current-card-border);
+  background-color: var(--current-card-bg);
+  overflow-y: auto; /* Allow vertical scrolling if content overflows */
+  transition: border-color 0.3s, background-color 0.3s;
+  display: flex; /* For alignment of content wrapper */
+  flex-direction: column; /* Stack content wrapper and feedback */
+}
+
+.flashcard-content-wrapper {
+  width: 100%;
+  /* height: 100%; Removed to allow natural height based on content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: transparent; /* Overlay logic removed */
+  border-radius: inherit; 
+  transition: background-color 0.3s;
+  flex-grow: 1; /* Allow it to take up space not used by feedback */
+}
+
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+.flashcard-back .flashcard-content-wrapper { /* Definition content might need less padding if feedback is shown */
+  padding-bottom: 5px; /* Adjust as needed */
+}
+
+
+.flashcard:hover .flashcard-inner {
+  box-shadow: 0 4px 8px light-dark(var(--light-shadow-color-1), var(--dark-shadow-color-1));
+}
+
+.flashcard:hover .flashcard-front,
+.flashcard:hover .flashcard-back {
+   border-color: light-dark(var(--light-primary), var(--dark-primary));
+}
+
+.term {
+  font-size: 1.25em;
+  font-weight: 500;
+  color: var(--current-card-term-text);
+  transition: color 0.3s;
+  position: relative; 
+  z-index: 1;
+}
+
+.definition {
+  font-size: 1.0em;
+  color: var(--current-card-definition-text);
+  line-height: 1.4;
+  transition: color 0.3s;
+  position: relative; 
+  z-index: 1;
+  margin-bottom: 5px; /* Space for feedback below */
+}
+
+.feedback-area {
+  padding: 8px 12px;
+  margin: 0px 10px 10px 10px; /* Add some margin inside the card */
+  border-radius: 6px;
+  font-size: 0.85em;
+  line-height: 1.3;
+  text-align: left;
+  border: 1px solid transparent;
+  position: relative;
+  z-index: 1; /* Ensure feedback is above overlay */
+  flex-shrink: 0; /* Prevent feedback area from shrinking */
+}
+.feedback-area strong {
+  display: block;
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.feedback-correct {
+  background-color: light-dark(var(--feedback-correct-bg-light), var(--feedback-correct-bg-dark));
+  color: light-dark(var(--feedback-correct-text-light), var(--feedback-correct-text-dark));
+  border-color: light-dark(var(--feedback-correct-border-light), var(--feedback-correct-border-dark));
+}
+.feedback-partially_correct {
+  background-color: light-dark(var(--feedback-partial-bg-light), var(--feedback-partial-bg-dark));
+  color: light-dark(var(--feedback-partial-text-light), var(--feedback-partial-text-dark));
+  border-color: light-dark(var(--feedback-partial-border-light), var(--feedback-partial-border-dark));
+}
+.feedback-incorrect {
+  background-color: light-dark(var(--feedback-incorrect-bg-light), var(--feedback-incorrect-bg-dark));
+  color: light-dark(var(--feedback-incorrect-text-light), var(--feedback-incorrect-text-dark));
+  border-color: light-dark(var(--feedback-incorrect-border-light), var(--feedback-incorrect-border-dark));
+}
+
+.app-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid light-dark(var(--light-border), var(--dark-border));
+  color: light-dark(var(--light-text-secondary), var(--dark-text-secondary));
+  font-size: 0.9em;
+  text-align: center;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+  display: flex; /* Use flexbox for centering */
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.modal[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+.modal-content {
+  background-color: light-dark(var(--light-surface), var(--dark-surface));
+  margin: auto;
+  padding: 25px 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px light-dark(var(--light-shadow-color-1), var(--dark-shadow-color-1));
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.modal[aria-hidden="false"] .modal-content {
+    transform: scale(1);
+}
+
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: light-dark(var(--light-primary), var(--dark-primary));
+  font-size: 1.8em;
+  text-align: center;
+}
+.modal-content p {
+  margin: 5px 0;
+  color: light-dark(var(--light-text-secondary), var(--dark-text-secondary));
+}
+.modal-content p strong {
+  color: light-dark(var(--light-text-primary), var(--dark-text-primary));
+  font-weight: 500;
+}
+
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.modal-actions button {
+  width: auto; /* Override full width */
+  flex-grow: 1;
+  max-width: 200px; /* Max width for record buttons */
+}
+
+#transcribedText {
+  width: calc(100% - 32px); /* Full width minus padding */
+  min-height: 80px;
+  padding: 10px 15px;
+  border: 1px solid light-dark(var(--light-border), var(--dark-border));
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: light-dark(var(--light-bg), #3c4043); /* Slightly different from main textarea */
+  color: light-dark(var(--light-text-primary), var(--dark-text-primary));
+  resize: vertical;
+}
+#transcribedText:focus {
+  outline: none;
+  border-color: light-dark(var(--light-primary), var(--dark-primary));
+  box-shadow: 0 0 0 2px light-dark(var(--light-focus-shadow-color), var(--dark-focus-shadow-color));
+}
+
+.voice-status-message {
+  font-size: 0.9em;
+  color: light-dark(var(--light-text-secondary), var(--dark-text-secondary));
+  min-height: 1.2em;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.voice-status-message.recording {
+  color: light-dark(var(--light-error), var(--dark-error)); /* Use error color for "Recording..." to make it stand out */
+  font-weight: 500;
+}
+
+
+.modal-footer-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end; /* Align to right */
+  margin-top: 15px;
+}
+.modal-footer-actions button {
+  width: auto; /* Override full width */
+  max-width: none;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-container {
+    width: 95%;
+    padding: 20px;
+  }
+  .app-header h1 {
+    font-size: 1.8em;
+  }
+  .actions-row button {
+    width: 100%; 
+    max-width: 400px; 
+  }
+  .flashcard {
+    width: var(--flashcard-width);
+  }
+}
+
+@media (max-width: 480px) {
+  .actions-row button {
+    max-width: 100%; 
+  }
+  .flashcard {
+     width: calc(100% - 10px);
+     height: auto;
+     min-height: var(--flashcard-height);
+  }
+  .term {
+    font-size: 1.1em;
+  }
+  .definition {
+    font-size: 0.9em;
+  }
+  .modal-content {
+    padding: 20px;
+    gap: 10px;
+  }
+  .modal-content h2 {
+    font-size: 1.5em;
+  }
+  .modal-actions {
+    flex-direction: column;
+  }
+  .modal-actions button {
+    width: 100%;
+    max-width: 100%;
+  }
+  .modal-footer-actions {
+    flex-direction: column-reverse; /* Stack buttons, primary action last (bottom) */
+  }
+  .modal-footer-actions button {
+    width: 100%;
+  }
+}

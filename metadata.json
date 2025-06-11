@@ -1,0 +1,8 @@
+{
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "name": "Flashcard Generator",
+  "description": "Use the Flashcards to revise the concepts before going to interview",
+  "prompt": ""
+}
