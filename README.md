@@ -59,3 +59,18 @@ Users can input a topic (e.g., "Photosynthesis," "JavaScript Data Types") or pro
 
 **Note on API Key:**
 The `API_KEY` is loaded from `process.env.API_KEY`. **Do not commit your API key directly into the code or into a `.env` file that is tracked by Git.** Ensure your `.gitignore` file includes `.env` if you choose to use such a file locally.
+
+# Run and deploy your AI Studio app
+
+This contains everything you need to run your app locally.
+
+## Run Locally
+
+**Prerequisites:**  Node.js
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env](.env) to your Gemini API key
+
+3. Run the app: open the terminal and use the following command:
+    `npm run dev`
